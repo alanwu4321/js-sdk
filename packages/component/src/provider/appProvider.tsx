@@ -342,6 +342,14 @@ const InnerProvider = (props: PropsWithChildren<OrderlyAppProviderProps>) => {
       currentWallet.accounts.length > 0 &&
       account
     ) {
+      const isChainSupported = checkChainId(currentChainId);
+      if (isChainSupported && errors.ChainNetworkNotSupport) {
+          setErrors((prevErrors) => ({
+              ...prevErrors,
+              ChainNetworkNotSupport: false
+          }));
+      }
+      
       if (
         account.address === currentAddress &&
         currentChainId === account.chainId
